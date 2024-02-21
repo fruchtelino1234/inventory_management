@@ -8,6 +8,12 @@ from .models import InventoryItem, Category
 from inventory_management.settings import LOW_QUANTITY
 from django.contrib import messages
 
+
+
+def contact_view(request):
+    return render(request, 'inventory/contact.html')
+
+
 class Index(TemplateView):
 	template_name = 'inventory/index.html'
 
@@ -17,8 +23,8 @@ class Dashboard(LoginRequiredMixin, View):
 
 		low_inventory = InventoryItem.objects.filter(
 			user=self.request.user.id,
-			quantity__lte=LOW_QUANTITY
-		)
+			quantity__lte=3                                               
+		) 
 
 		if low_inventory.count() > 0:
 			if low_inventory.count() > 1:
@@ -79,3 +85,5 @@ class DeleteItem(LoginRequiredMixin, DeleteView):
 	template_name = 'inventory/delete_item.html'
 	success_url = reverse_lazy('dashboard')
 	context_object_name = 'item'
+
+

@@ -1,7 +1,12 @@
 from django.contrib import admin
 from django.urls import path
-from .views import Index, SignUpView, Dashboard, AddItem, EditItem, DeleteItem
+from .views import Index, SignUpView, Dashboard, AddItem, EditItem, DeleteItem, contact_view
 from django.contrib.auth import views as auth_views
+from . import views
+from django.conf import settings
+from django.conf.urls.static import static
+
+from django.urls import path
 
 urlpatterns = [
     path('', Index.as_view(), name='index'),
@@ -12,4 +17,8 @@ urlpatterns = [
     path('signup/', SignUpView.as_view(), name='signup'),
     path('login/', auth_views.LoginView.as_view(template_name='inventory/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='inventory/logout.html'), name='logout'),
-]
+    path('contact/', contact_view, name='contact'),    
+    
+
+    
+] 
